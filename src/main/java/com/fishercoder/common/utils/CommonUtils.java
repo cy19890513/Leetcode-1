@@ -1,5 +1,6 @@
 package com.fishercoder.common.utils;
 
+import com.fishercoder.common.classes.Interval;
 import com.fishercoder.common.classes.ListNode;
 
 import java.util.ArrayList;
@@ -166,9 +167,9 @@ public class CommonUtils {
         System.out.println();
     }
 
-    public static void printIntegerList(List<List<Integer>> res) {
-        for(List<Integer> list : res){
-            for(int i : list){
+    public static <T> void printListList(List<List<T>> res) {
+        for(List<T> list : res){
+            for(T i : list){
                 System.out.print(i + ", ");
             }
             System.out.println();
@@ -186,4 +187,20 @@ public class CommonUtils {
         System.out.println();
     }
 
+    public static void printIntervals(List<Interval> intervals) {
+        for (Interval interval : intervals) {
+            System.out.print("[" + interval.start + ", " + interval.end + "], ");
+        }
+        System.out.println();
+    }
+
+    public static void printArrayArray(int[][] arrayArrays) {
+        for (int[] array : arrayArrays) {
+            for (int i : array) {
+                System.out.print(i + ", ");
+            }
+            System.out.println();
+        }
+        System.out.println();
+    }
 }
