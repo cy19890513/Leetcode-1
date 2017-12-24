@@ -12,12 +12,18 @@ public class UndirectedGraphNode {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         UndirectedGraphNode that = (UndirectedGraphNode) o;
 
-        if (label != that.label) return false;
+        if (label != that.label) {
+            return false;
+        }
         return neighbors != null ? neighbors.equals(that.neighbors) : that.neighbors == null;
     }
 
@@ -28,5 +34,8 @@ public class UndirectedGraphNode {
         return result;
     }
 
-    public UndirectedGraphNode(int x) { label = x; neighbors = new ArrayList<UndirectedGraphNode>(); }
+    public UndirectedGraphNode(int x) {
+        label = x;
+        neighbors = new ArrayList<>();
+    }
 }

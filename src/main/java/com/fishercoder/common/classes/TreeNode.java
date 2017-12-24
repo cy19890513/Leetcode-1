@@ -7,13 +7,21 @@ public class TreeNode {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof TreeNode)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof TreeNode)) {
+            return false;
+        }
 
         TreeNode treeNode = (TreeNode) o;
 
-        if (val != treeNode.val) return false;
-        if (left != null ? !left.equals(treeNode.left) : treeNode.left != null) return false;
+        if (val != treeNode.val) {
+            return false;
+        }
+        if (left != null ? !left.equals(treeNode.left) : treeNode.left != null) {
+            return false;
+        }
         return right != null ? right.equals(treeNode.right) : treeNode.right == null;
     }
 
@@ -27,15 +35,13 @@ public class TreeNode {
 
     @Override
     public String toString() {
-        return "TreeNode{" +
-                "val=" + val +
-                ", left=" + left +
-                ", right=" + right +
-                '}';
+        return "TreeNode{" + "val=" + val + ", left=" + left + ", right=" + right + '}';
     }
 
-    public TreeNode(int x){this.val = x;}
-    
+    public TreeNode(int x) {
+        this.val = x;
+    }
+
     public TreeNode(TreeNode left, int val, TreeNode right) {
         this.left = left;
         this.val = val;

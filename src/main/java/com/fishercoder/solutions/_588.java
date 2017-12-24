@@ -1,6 +1,11 @@
 package com.fishercoder.solutions;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 588. Design In-Memory File System
@@ -46,6 +51,7 @@ public class _588 {
             Map<String, TrieNode> map;
             String name;
             StringBuilder stringBuilder;
+
             TrieNode(String name) {
                 this.name = name;
                 map = new HashMap<>();
@@ -58,8 +64,12 @@ public class _588 {
         TrieNode dfs(String path) {
             TrieNode node = root;
             for (String eachPath : path.split("/")) {
-                if (eachPath.isEmpty()) continue;
-                if (!node.map.containsKey(eachPath)) node.map.put(eachPath, new TrieNode(eachPath));
+                if (eachPath.isEmpty()) {
+                    continue;
+                }
+                if (!node.map.containsKey(eachPath)) {
+                    node.map.put(eachPath, new TrieNode(eachPath));
+                }
                 node = node.map.get(eachPath);
             }
             return node;

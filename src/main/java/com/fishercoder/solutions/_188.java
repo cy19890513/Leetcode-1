@@ -15,7 +15,9 @@ public class _188 {
     /**credit: https://discuss.leetcode.com/topic/8984/a-concise-dp-solution-in-java*/
     public int maxProfit(int k, int[] prices) {
         int len = prices.length;
-        if (k >= len / 2) return quickSolve(prices);
+        if (k >= len / 2) {
+            return quickSolve(prices);
+        }
 
         int[][] t = new int[k + 1][len];
         for (int i = 1; i <= k; i++) {
@@ -30,10 +32,13 @@ public class _188 {
 
 
     private int quickSolve(int[] prices) {
-        int len = prices.length, profit = 0;
+        int len = prices.length;
+        int profit = 0;
         for (int i = 1; i < len; i++) {
             // as long as there is a price gap, we gain a profit.
-            if (prices[i] > prices[i - 1]) profit += prices[i] - prices[i - 1];
+            if (prices[i] > prices[i - 1]) {
+                profit += prices[i] - prices[i - 1];
+            }
         }
         return profit;
     }

@@ -1,6 +1,8 @@
 package com.fishercoder.solutions;
 
-/**Given a string, find the first non-repeating character in it and return it's index. If it doesn't exist, return -1.
+/**
+ * 387. First Unique Character in a String
+ * Given a string, find the first non-repeating character in it and return it's index. If it doesn't exist, return -1.
 
  Examples:
 
@@ -12,6 +14,7 @@ package com.fishercoder.solutions;
  Note: You may assume the string contain only lowercase letters.
 
  */
+
 public class _387 {
 
     public static int firstUniqChar(String s) {
@@ -20,12 +23,14 @@ public class _387 {
             freq[s.charAt(i) - 'a']++;
         }
         for (int i = 0; i < s.length(); i++) {
-            if (freq[s.charAt(i) - 'a'] == 1) return i;
+            if (freq[s.charAt(i) - 'a'] == 1) {
+                return i;
+            }
         }
         return -1;
     }
-    
-    public static void main(String...strings){
+
+    public static void main(String... strings) {
         String s = "leetcode";
         System.out.println(firstUniqChar(s));
     }

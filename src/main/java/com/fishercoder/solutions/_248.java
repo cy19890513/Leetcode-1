@@ -39,8 +39,8 @@ public class _248 {
         public void dfs(String low, String high , char[] c, int left, int right, int[] count) {
             if (left > right) {
                 String s = new String(c);
-                if ((s.length() == low.length() && s.compareTo(low) < 0) ||
-                        (s.length() == high.length() && s.compareTo(high) > 0)) {
+                if ((s.length() == low.length() && s.compareTo(low) < 0)
+                        || (s.length() == high.length() && s.compareTo(high) > 0)) {
                     return;
                 }
                 count[0]++;
@@ -71,7 +71,8 @@ public class _248 {
             map.put('0', '0');
         }
 
-        String low = "", high = "";
+        String low = "";
+        String high = "";
 
         public int strobogrammaticInRange(String low, String high) {
             this.low = low;
@@ -96,17 +97,20 @@ public class _248 {
             for (Character c : map.keySet()) {
                 arr[lo] = c;
                 arr[hi] = map.get(c);
-                if ((lo == hi && c == map.get(c)) || lo < hi)
+                if ((lo == hi && c == map.get(c)) || lo < hi) {
                     strobogrammaticInRange(arr, count, lo + 1, hi - 1);
+                }
             }
         }
 
         private boolean compare(String a, String b) {
-            if (a.length() != b.length())
+            if (a.length() != b.length()) {
                 return a.length() < b.length();
+            }
             int i = 0;
-            while (i < a.length() && a.charAt(i) == b.charAt(i))
+            while (i < a.length() && a.charAt(i) == b.charAt(i)) {
                 i++;
+            }
             return i == a.length() ? true : a.charAt(i) <= b.charAt(i);
         }
     }

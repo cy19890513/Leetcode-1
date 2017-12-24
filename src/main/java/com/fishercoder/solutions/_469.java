@@ -37,7 +37,8 @@ public class _469 {
         boolean gotNegative = false;
         boolean gotPositive = false;
         int numPoints = points.size();
-        int B, C;
+        int B;
+        int C;
         for (int A = 0; A < numPoints; A++) {
             // Trick to calc the last 3 points: n - 1, 0 and 1.
             B = (A + 1) % numPoints;
@@ -50,11 +51,12 @@ public class _469 {
                             points.get(C).get(0), points.get(C).get(1));
             if (crossProduct < 0) {
                 gotNegative = true;
-            }
-            else if (crossProduct > 0) {
+            } else if (crossProduct > 0) {
                 gotPositive = true;
             }
-            if (gotNegative && gotPositive) return false;
+            if (gotNegative && gotPositive) {
+                return false;
+            }
         }
 
         // If we got this far, the polygon is convex.

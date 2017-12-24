@@ -23,7 +23,9 @@ package com.fishercoder.solutions;
 public class _600 {
 
     public static class DPSolution {
-        /**Credit: https://leetcode.com/articles/non-negative-integers-without-consecutive-ones/#approach-3-using-bit-manipulation-accepted*/
+        /**
+         * Credit: https://leetcode.com/articles/non-negative-integers-without-consecutive-ones/#approach-3-using-bit-manipulation-accepted
+         */
         public int findIntegers(int num) {
             int[] f = new int[32];
             f[0] = 1;
@@ -31,17 +33,19 @@ public class _600 {
             for (int i = 2; i < f.length; i++) {
                 f[i] = f[i - 1] + f[i - 2];
             }
-            int i = 30, sum = 0, prev_bit = 0;
+            int i = 30;
+            int sum = 0;
+            int prevBit = 0;
             while (i >= 0) {
                 if ((num & (1 << i)) != 0) {
                     sum += f[i];
-                    if (prev_bit == 1) {
+                    if (prevBit == 1) {
                         sum--;
                         break;
                     }
-                    prev_bit = 1;
+                    prevBit = 1;
                 } else {
-                    prev_bit = 0;
+                    prevBit = 0;
                 }
                 i--;
             }
@@ -49,19 +53,25 @@ public class _600 {
         }
     }
 
-    /**Brute force is definitely correct, but too time consuming and resulted in TLE.*/
+    /**
+     * Brute force is definitely correct, but too time consuming and resulted in TLE.
+     */
     public int findIntegers(int num) {
         int answer = 0;
         for (int i = 0; i <= num; i++) {
-            if (hasConsecutiveOnes(i)) answer++;
+            if (hasConsecutiveOnes(i)) {
+                answer++;
+            }
         }
         return answer;
     }
 
     private boolean hasConsecutiveOnes(int num) {
         String bin = Integer.toBinaryString(num);
-        for (int i = 0; i < bin.length()-1; i++) {
-            if (bin.charAt(i) == '1' && bin.charAt(i+1) == '1') return false;
+        for (int i = 0; i < bin.length() - 1; i++) {
+            if (bin.charAt(i) == '1' && bin.charAt(i + 1) == '1') {
+                return false;
+            }
         }
         return true;
     }

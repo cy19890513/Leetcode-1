@@ -10,12 +10,14 @@ public class _52 {
 
     public int totalNQueens(int n) {
         List<List<String>> result = new ArrayList<>();
-        if (n <= 0) return result.size();
+        if (n <= 0) {
+            return result.size();
+        }
         search(n, new ArrayList<>(), result);
         return result.size();
     }
 
-    private void search (int n, ArrayList<Integer> col, List<List<String>> result) {
+    private void search(int n, ArrayList<Integer> col, List<List<String>> result) {
         if (col.size() == n) {
             result.add(drawChessBoard(col));
             return;

@@ -1,6 +1,13 @@
 package com.fishercoder.solutions;
 
-import java.util.*;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Queue;
+import java.util.Set;
 
 /**
  * 444. Sequence Reconstruction
@@ -58,19 +65,19 @@ public class _444 {
                     indegree.put(seq.get(0), 0);
                 }
             } else {
-                for (int i = 0; i < seq.size()-1; i++) {
+                for (int i = 0; i < seq.size() - 1; i++) {
                     if (!map.containsKey(seq.get(i))) {
                         map.put(seq.get(i), new HashSet<>());
                         indegree.put(seq.get(i), 0);
                     }
 
-                    if (!map.containsKey(seq.get(i+1))) {
-                        map.put(seq.get(i+1), new HashSet<>());
-                        indegree.put(seq.get(i+1), 0);
+                    if (!map.containsKey(seq.get(i + 1))) {
+                        map.put(seq.get(i + 1), new HashSet<>());
+                        indegree.put(seq.get(i + 1), 0);
                     }
 
-                    if (map.get(seq.get(i)).add(seq.get(i+1))) {
-                        indegree.put(seq.get(i+1), indegree.get(seq.get(i+1)) + 1);
+                    if (map.get(seq.get(i)).add(seq.get(i + 1))) {
+                        indegree.put(seq.get(i + 1), indegree.get(seq.get(i + 1)) + 1);
                     }
                 }
             }
@@ -86,12 +93,18 @@ public class _444 {
         int index = 0;
         while (!queue.isEmpty()) {
             int size = queue.size();
-            if (size > 1) return false;
+            if (size > 1) {
+                return false;
+            }
             int curr = queue.poll();
-            if (index == org.length || curr != org[index++]) return false;
+            if (index == org.length || curr != org[index++]) {
+                return false;
+            }
             for (int next : map.get(curr)) {
-                indegree.put(next, indegree.get(next)-1);
-                if (indegree.get(next) == 0) queue.offer(next);
+                indegree.put(next, indegree.get(next) - 1);
+                if (indegree.get(next) == 0) {
+                    queue.offer(next);
+                }
             }
         }
         return index == org.length && index == map.size();

@@ -6,7 +6,7 @@ package com.fishercoder.solutions;
 
 /**Longest Line of Consecutive One in Matrix
  *
- * Given a 01 matrix M, find the longest line of consecutive one in the matrix. The line could be horizontal, vertical, diagonal or anti-diagonal.
+ * Given a 01 matrix m, find the longest line of consecutive one in the matrix. The line could be horizontal, vertical, diagonal or anti-diagonal.
 
  Example:
 
@@ -21,7 +21,9 @@ package com.fishercoder.solutions;
 public class _562 {
 
     public int longestLine(int[][] M) {
-        if (M == null || M.length == 0) return 0;
+        if (M == null || M.length == 0) {
+            return 0;
+        }
         int[][] directions = new int[][]{
                 {-1, 0},
                 {-1, 1},

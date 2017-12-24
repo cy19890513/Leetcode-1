@@ -1,31 +1,42 @@
 package com.fishercoder.solutions;
+
 /**
  * 67. Add Binary
- 	Given two binary strings, return their sum (also a binary string).
-	For example,
-	a = "11"
-	b = "1"
-	Return "100".*/
+ * Given two binary strings, return their sum (also a binary string).
+ * For example,
+ * a = "11"
+ * b = "1"
+ * Return "100".
+ */
+
 public class _67 {
     //then I turned to Discuss, this post is concise: https://discuss.leetcode.com/topic/13698/short-ac-solution-in-java-with-explanation
     //Tricks and things learned that could be learned:
     //1. use StringBuilder.reverse() function! Nice!
     //2. if a numeric number is represented/stored in String, how to get its value: use Character.getNumericValue(s.charAt(i))
     //3. directly adding/subtracting chars will end up working with their ASCII numbers, e.g. chars[0] = 'a', chars[1] = 'b', then chars[0] + chars[1] will become 195
-    public String addBinary(String a, String b){
-        int carry = 0, i = a.length()-1, j = b.length()-1;
+    public String addBinary(String a, String b) {
+        int carry = 0;
+        int i = a.length() - 1;
+        int j = b.length() - 1;
         StringBuilder sb = new StringBuilder();
-        while(i >= 0 || j >= 0){
+        while (i >= 0 || j >= 0) {
             int sum = carry;
-            if(i >= 0) sum += a.charAt(i--) - '0';
-            if(j >= 0) sum += b.charAt(j--) - '0';
-            sb.append(sum%2);
-            carry = sum/2;
+            if (i >= 0) {
+                sum += a.charAt(i--) - '0';
+            }
+            if (j >= 0) {
+                sum += b.charAt(j--) - '0';
+            }
+            sb.append(sum % 2);
+            carry = sum / 2;
         }
-        if(carry != 0) sb.append(carry);
+        if (carry != 0) {
+            sb.append(carry);
+        }
         return sb.reverse().toString();
     }
-    
+
     //my original lengthy but AC'ed solution
     public String addBinary_my_original_accepted_but_lengthy_solution(String a, String b) {
         char[] longer = (a.length() >= b.length()) ? a.toCharArray() : b.toCharArray();
@@ -34,15 +45,16 @@ public class _67 {
         //let's use Math.max() as the length first, if the most signifant bits add up to a carry, then we'll add one more bit
         char[] result = new char[longer.length];
         boolean carry = false;
-        int i = longer.length-1, j = shorter.length-1;
+        int i = longer.length - 1;
+        int j = shorter.length - 1;
         System.out.println(Character.getNumericValue(longer[i]) + Character.getNumericValue(shorter[j]));
         System.out.println((int) longer[i] + (int) shorter[j]);
         System.out.println(longer[i] + shorter[j]);
         System.out.println('a' + 'b');
-        for(; i >= 0 || j >= 0; i--, j--){
-            if(j < 0 && i >= 0){
-                if(carry){
-                    if(Character.getNumericValue(longer[i])+1 == 2){
+        for (; i >= 0 || j >= 0; i--, j--) {
+            if (j < 0 && i >= 0) {
+                if (carry) {
+                    if (Character.getNumericValue(longer[i]) + 1 == 2) {
                         result[i] = '0';
                         carry = true;
                     } else {
@@ -50,28 +62,28 @@ public class _67 {
                         carry = false;
                     }
                 } else {
-                    for(int k = i; k >= 0; k--){
+                    for (int k = i; k >= 0; k--) {
                         result[k] = longer[k];
                     }
                     return new String(result);
                 }
-            } else if(Character.getNumericValue(longer[i]) + Character.getNumericValue(shorter[j]) == 2){
-                if(carry){
+            } else if (Character.getNumericValue(longer[i]) + Character.getNumericValue(shorter[j]) == 2) {
+                if (carry) {
                     result[i] = '1';
                 } else {
                     result[i] = '0';
                 }
                 carry = true;
-            } else if(Character.getNumericValue(longer[i]) + Character.getNumericValue(shorter[j]) == 1){
-                if(carry){
+            } else if (Character.getNumericValue(longer[i]) + Character.getNumericValue(shorter[j]) == 1) {
+                if (carry) {
                     result[i] = '0';
                     carry = true;
                 } else {
                     result[i] = '1';
                     carry = false;
                 }
-            } else if(Character.getNumericValue(longer[i]) + Character.getNumericValue(shorter[j]) == 0){
-                if(carry){
+            } else if (Character.getNumericValue(longer[i]) + Character.getNumericValue(shorter[j]) == 0) {
+                if (carry) {
                     result[i] = '1';
                 } else {
                     result[i] = '0';
@@ -79,11 +91,11 @@ public class _67 {
                 carry = false;
             }
         }
-        if(carry){
-            char[] newResult = new char[longer.length+1];
+        if (carry) {
+            char[] newResult = new char[longer.length + 1];
             newResult[0] = '1';
-            for(int k = 0; k < result.length; k++){
-                newResult[k+1] = result[k];
+            for (int k = 0; k < result.length; k++) {
+                newResult[k + 1] = result[k];
             }
             return new String(newResult);
         }

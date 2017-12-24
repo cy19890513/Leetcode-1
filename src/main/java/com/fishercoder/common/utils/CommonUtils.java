@@ -14,30 +14,48 @@ public class CommonUtils {
 
     //How to make a method generic: declare <T> in its method signature
     public static <T> void printArray_generic_type(T[] nums) {
-        for(T i : nums){
+        for (T i : nums) {
             System.out.print(i + ", ");
         }
         System.out.println();
     }
-    
-    public static void main(String...strings){
-        Integer[] nums = new Integer[]{1,2,3,4,5};
+
+    public static void main(String... strings) {
+        Integer[] nums = new Integer[]{1, 2, 3, 4, 5};
         printArray_generic_type(nums);
     }
-    
+
     public static void printArray(int[] nums) {
-        for(int i : nums){
+        for (int i : nums) {
             System.out.print(i + ", ");
         }
         System.out.println();
     }
-    
+
+    public static void print2DIntArray(int[][] nums) {
+        for (int[] array : nums) {
+            for (int i : array) {
+                System.out.print(i + ", ");
+            }
+            System.out.println();
+        }
+        System.out.println();
+    }
+
     public static void print(String message) {
         System.out.print(message);
     }
 
     public static void print(int num) {
         System.out.print(num);
+    }
+
+    public static void print(List<String> list) {
+        System.out.println("----------------------------------------------------");
+        for (String str : list) {
+            System.out.print(str + ", ");
+        }
+        System.out.println();
     }
 
     public static void println(String message) {
@@ -89,14 +107,16 @@ public class CommonUtils {
     // @Notes(context =
     // "I'm assuing only classes in this PACKAGE will call the following two methods, so just leave the modifier as default, i.e. no public, private, or protected.")
     public static void printWhitespaces(int count) {
-        for (int i = 0; i < count; i++)
+        for (int i = 0; i < count; i++) {
             System.out.print(" ");
+        }
     }
 
     public static <T> boolean isAllElementsNull(List<T> list) {
         for (Object object : list) {
-            if (object != null)
+            if (object != null) {
                 return false;
+            }
         }
 
         return true;
@@ -110,7 +130,9 @@ public class CommonUtils {
         if (head == null || head.next == null) {
             return head;
         }
-        ListNode previous, current, next;
+        ListNode previous;
+        ListNode current;
+        ListNode next;
         previous = head;
         current = head.next;
         while (current != null) {
@@ -129,8 +151,23 @@ public class CommonUtils {
         while (temp != null) {
             System.out.print(temp.val);
             temp = temp.next;
-            if (temp != null)
+            if (temp != null) {
                 System.out.print("->");
+            }
+        }
+        System.out.println();
+    }
+
+    public static <T> void printList(List<T> list) {
+        int count = 0;
+        for (T t : list) {
+            count++;
+            System.out.print(t);
+            if (count % 10 != 0) {
+                System.out.print("\t");
+            } else {
+                System.out.println();
+            }
         }
         System.out.println();
     }
@@ -145,46 +182,27 @@ public class CommonUtils {
         }
         System.out.println("----------------------------------------------------");
     }
-    
+
     public static void printMatrixGeneric(boolean[][] matrix) {
 
         System.out.println("Matrix is: ");
-        for(boolean[] row : matrix){
-            for(boolean t : row){
+        for (boolean[] row : matrix) {
+            for (boolean t : row) {
                 System.out.print(t + "\t");
             }
             System.out.println();
         }
         System.out.println("----------------------------------------------------");
-    
-    }
 
-    public static void print(List<String> list) {
-        System.out.println("----------------------------------------------------");
-        for(String str : list){
-            System.out.print(str + ", ");
-        }
-        System.out.println();
     }
 
     public static <T> void printListList(List<List<T>> res) {
-        for(List<T> list : res){
-            for(T i : list){
+        for (List<T> list : res) {
+            for (T i : list) {
                 System.out.print(i + ", ");
             }
             System.out.println();
         }
-    }
-
-    public static <T> void printList(List<T> list) {
-        int count = 0;
-        for(T t : list){
-            count++;
-            System.out.print(t);
-            if(count%10 != 0) System.out.print("\t");
-            else System.out.println();
-        }
-        System.out.println();
     }
 
     public static void printIntervals(List<Interval> intervals) {

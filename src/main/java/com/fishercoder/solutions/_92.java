@@ -51,7 +51,9 @@ public class _92 {
         // find node at position m, let's call it "revHead"
         // set its previous node as "newRevHead", then start processing until we reach node at
         // position n
-        ListNode newRevHead = null, revHead = head, pre = new ListNode(-1);
+        ListNode newRevHead = null;
+        ListNode revHead = head;
+        ListNode pre = new ListNode(-1);
         pre.next = head;
         if (m > 1) {
             int mCnt = 1;
@@ -60,7 +62,7 @@ public class _92 {
                 revHead = revHead.next;
             }
         }
-        ListNode node_prior_to_m = newRevHead;
+        ListNode nodePriorToM = newRevHead;
 
         // iteratively
         int nCnt = m;
@@ -73,8 +75,9 @@ public class _92 {
             nCnt++;
         }
 
-        if (nCnt > n)
+        if (nCnt > n) {
             nCnt--;
+        }
         // append next to the tail of the reversed part
         ListNode reversedPart = newRevHead;
         if (reversedPart != null) {
@@ -86,10 +89,11 @@ public class _92 {
         }
 
         // append the reversed part head to the node at position m-1
-        if (node_prior_to_m != null)
-            node_prior_to_m.next = newRevHead;
-        else
+        if (nodePriorToM != null) {
+            nodePriorToM.next = newRevHead;
+        } else {
             pre.next = newRevHead;
+        }
 
         return pre.next;
     }
@@ -108,7 +112,8 @@ public class _92 {
 
         ListNode head = new ListNode(3);
         head.next = new ListNode(5);
-        int m = 1, n = 2;
+        int m = 1;
+        int n = 2;
 
         CommonUtils.printList(head);
         ListNode result = test.reverseBetween(head, m, n);

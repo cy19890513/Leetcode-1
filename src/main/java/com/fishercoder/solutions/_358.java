@@ -1,6 +1,10 @@
 package com.fishercoder.solutions;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 /**
  * 358. Rearrange String k Distance Apart
@@ -41,11 +45,15 @@ public class _358 {
         while (!heap.isEmpty()) {
             Map.Entry<Character, Integer> entry = heap.poll();
             stringBuilder.append(entry.getKey());
-            entry.setValue(entry.getValue()-1);
+            entry.setValue(entry.getValue() - 1);
             waitQueue.offer(entry);
-            if (waitQueue.size() < k) continue; //there's only k-1 chars in the waitHeap, not full yet
+            if (waitQueue.size() < k) {
+                continue; //there's only k-1 chars in the waitHeap, not full yet
+            }
             Map.Entry<Character, Integer> front = waitQueue.poll();
-            if (front.getValue() > 0) heap.offer(front);
+            if (front.getValue() > 0) {
+                heap.offer(front);
+            }
         }
 
         return stringBuilder.length() == s.length() ? stringBuilder.toString() : "";

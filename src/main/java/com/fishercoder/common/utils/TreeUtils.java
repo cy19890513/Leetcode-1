@@ -1,105 +1,73 @@
-/**
- * 
- */
 package com.fishercoder.common.utils;
 
 import com.fishercoder.common.classes.TreeNode;
 
-import java.util.*;
-
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 
 /**
  * This is a util class to contain all tree related methods.
  */
 public class TreeUtils {
-	
-	/**
-	 * This method is to construct a normal binary tree. The input reads like
-	 * this for [5, 3, 6, 2, 4, null, null, 1]:
-
-		       5
-	         /   \
-	        3     6
-	       / \    / \
-	      2   4  N   N
-	     /
-	    1 
-	    
-	 * where N is null.
-	 * 
-	 * Basically you go from top level to bottom, then left to right within the level
-	 * 
-	 * Cool! Confirmed/tested out that this one does exactly the same as the bruteforce one does!
-	 */
-	@Notes(issue = "This is usually how Leetcode OJ passes a binary tree into testing.")
-	public static TreeNode constructBinaryTree(List<Integer> treeValues) {
-		TreeNode root = new TreeNode(null, treeValues.get(0), null);
-
-		final Queue<TreeNode> queue = new LinkedList<TreeNode>();
-		queue.add(root);
-
-		final int half = treeValues.size() / 2;
-
-		for (int i = 0; i < half; i++) {
-			if (treeValues.get(i) != null) {
-				final TreeNode current = queue.poll();
-				final int left = 2 * i + 1;
-				final int right = 2 * i + 2;
-
-				if (treeValues.get(left) != null) {
-					current.left = new TreeNode(null, treeValues.get(left),
-							null);
-					queue.add(current.left);
-				}
-				if (right < treeValues.size() && treeValues.get(right) != null) {
-					current.right = new TreeNode(null, treeValues.get(right),
-							null);
-					queue.add(current.right);
-				}
-			}
+/**
+* This method is to construct a normal binary tree. The input reads like
+* this for [5, 3, 6, 2, 4, null, null, 1]:
+               5
+             /   \
+            3     6
+           / \    / \
+          2   4  #   #
+         /
+        1
+*/
+@Notes(context = "This is usually how Leetcode OJ passes a binary tree into testing: "
+	+ "https://leetcode.com/faq/#binary-tree, I wrote this function for my own ease of testing when copying"
+	+ "the test case from Leetcode in the form of [1, null, 2, 3].")
+public static TreeNode constructBinaryTree(List<Integer> treeValues) {
+	TreeNode root = new TreeNode(treeValues.get(0));
+	Queue<TreeNode> queue = new LinkedList<>();
+	queue.offer(root);
+	for (int i = 1; i < treeValues.size(); i++) {
+		TreeNode curr = queue.poll();
+		if (treeValues.get(i) != null) {
+			curr.left = new TreeNode(treeValues.get(i));
+			queue.offer(curr.left);
 		}
-		return root;
+		if (++i < treeValues.size() && treeValues.get(i) != null) {
+			curr.right = new TreeNode(treeValues.get(i));
+			queue.offer(curr.right);
+		}
 	}
-	
-	@Notes(issue = "This brute force takes in only first seven values to construct a tree, I really need to write one method that takes any arbitrary number of values.")
-	public static TreeNode bruteForceConstructBinaryTree(
-			List<Integer> treeValues) {
-		TreeNode root = null;
-
-		if (treeValues.size() < 7)
-			return root;
-
-		root = new TreeNode(treeValues.get(0));
-		root.left = new TreeNode(treeValues.get(1));
-		root.right = new TreeNode(treeValues.get(2));
-		root.left.left = new TreeNode(treeValues.get(3));
-		root.left.right = new TreeNode(treeValues.get(4));
-		root.right.left = new TreeNode(treeValues.get(5));
-		root.right.right = new TreeNode(treeValues.get(6));
-		return root;
-	}
+	return root;
+}
 
 	public static void printBinaryTree(TreeNode root) {
-		CommonUtils.println("\n\nPrinting out the binary tree in a very visual manner as below:");
-		
+		CommonUtils.println("\nPrinting out the binary tree in a very visual manner as below:\n");
+
 		// imitating from BTreePrinter class
 		int maxLevel = TreeUtils.maxLevel(root);
 
 		printNodeInternal(Collections.singletonList(root), 1, maxLevel);
 	}
-	
+
 	private static int maxLevel(TreeNode root) {
-		if (root == null)
+		if (root == null) {
 			return 0;
+		}
 
 		return Math.max(TreeUtils.maxLevel(root.left),
-				TreeUtils.maxLevel(root.right)) + 1;
+			TreeUtils.maxLevel(root.right)) + 1;
 	}
-	
+
 	private static void printNodeInternal(
-			List<TreeNode> list, int level, int maxLevel) {
-		if (list.isEmpty() || CommonUtils.isAllElementsNull(list))
+		List<TreeNode> list, int level, int maxLevel) {
+		if (list.isEmpty() || CommonUtils.isAllElementsNull(list)) {
 			return;
+		}
 
 		int floor = maxLevel - level;
 		int endgeLines = (int) Math.pow(2, (Math.max(floor - 1, 0)));
@@ -108,7 +76,7 @@ public class TreeUtils {
 
 		CommonUtils.printWhitespaces(firstSpaces);
 
-		List<TreeNode> newNodes = new ArrayList<TreeNode>();
+		List<TreeNode> newNodes = new ArrayList<>();
 		for (TreeNode node : list) {
 			if (node != null) {
 				System.out.print(node.val);
@@ -129,21 +97,23 @@ public class TreeUtils {
 				CommonUtils.printWhitespaces(firstSpaces - i);
 				if (list.get(j) == null) {
 					CommonUtils.printWhitespaces(endgeLines + endgeLines + i
-							+ 1);
+						+ 1);
 					continue;
 				}
 
-				if (list.get(j).left != null)
+				if (list.get(j).left != null) {
 					System.out.print("/");
-				else
+				} else {
 					CommonUtils.printWhitespaces(1);
+				}
 
 				CommonUtils.printWhitespaces(i + i - 1);
 
-				if (list.get(j).right != null)
+				if (list.get(j).right != null) {
 					System.out.print("\\");
-				else
+				} else {
 					CommonUtils.printWhitespaces(1);
+				}
 
 				CommonUtils.printWhitespaces(endgeLines + endgeLines - i);
 			}
@@ -153,34 +123,40 @@ public class TreeUtils {
 
 		printNodeInternal(newNodes, level + 1, maxLevel);
 	}
-	
-	public static void inOrderTraversal(TreeNode root){
+
+	public static void inOrderTraversal(TreeNode root) {
 		inOrder(root);
 	}
 
 	private static void inOrder(TreeNode root) {
-		if(root == null) {
+		if (root == null) {
 			return;
 		}
 		inOrder(root.left);
 		System.out.print(root.val + " ");
 		inOrder(root.right);
 	}
-	
-	public static void main (String... args){
-	    //test random int generator
+
+	public static void main(String... args) {
+		//test random int generator
 		List<Integer> treeValues = CommonUtils.randomIntArrayGenerator(24);
-		
+
 		List<Integer> treeValues2 = Arrays.asList(0, 1, 2, 3, 4, 5, 6);
-		
+
 		//test tree construction
-		TreeNode root1 = bruteForceConstructBinaryTree(treeValues2);
-		inOrderTraversal(root1);
-		printBinaryTree(root1);
-		
+		//		TreeNode root1 = bruteForceConstructBinaryTree(treeValues2);
+		//		inOrderTraversal(root1);
+		//		printBinaryTree(root1);
+
 		// test tree construction
 		TreeNode root2 = constructBinaryTree(treeValues);
 		inOrderTraversal(root2);
+		printBinaryTree(root2);
+
+		List<Integer> treeVals = new ArrayList<>(Arrays.asList(1, null, 2, 3));
+		CommonUtils.printList(treeVals);
+		root2 = constructBinaryTree(treeVals);
+		//		inOrderTraversal(root2);
 		printBinaryTree(root2);
 	}
 }

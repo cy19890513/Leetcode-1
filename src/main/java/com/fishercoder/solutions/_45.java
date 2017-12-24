@@ -20,15 +20,16 @@ public class _45 {
     public int jump(int[] A) {
         int jumps = 0;
         int len = A.length;
-        if (len == 0 || len == 1)
+        if (len == 0 || len == 1) {
             return jumps;
-        else if (len == 2) {
+        } else if (len == 2) {
             return 1;
         } else {
             int val = A[0];
             int index = 0;
-            if (val == 0)
+            if (val == 0) {
                 return jumps;
+            }
             while (index < len) {
                 int max = A[index];
                 if (max + index >= len - 1) {
@@ -38,14 +39,16 @@ public class _45 {
                 int tempMax = 0;
                 int tempMaxIndex = 0;
                 tempMax = A[index + 1];
-                for (int i = 0; i < val; i++) {// here's another tricky part:
+                for (int i = 0; i < val; i++) {
+                    // here's another tricky part:
                     // must set i = 0 as starting
                     // point
                     if (i + index >= len - 1) {
                         jumps++;
                         return jumps;
                     }
-                    if (i + A[index + i + 1] >= tempMax) {// when set i = 0 as
+                    if (i + A[index + i + 1] >= tempMax) {
+                        // when set i = 0 as
                         // starting point,
                         // then here must
                         // add 1
@@ -53,7 +56,8 @@ public class _45 {
                         tempMaxIndex = index + i + 1;
                     }
                 }
-                if (tempMax >= max) {// here must be great than or equal, equal
+                if (tempMax >= max) {
+                    // here must be great than or equal, equal
                     // is very important!
                     max = tempMax;
                     index = tempMaxIndex;

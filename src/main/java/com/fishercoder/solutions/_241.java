@@ -44,7 +44,7 @@ public class _241 {
                     || input.charAt(i) == '-'
                     || input.charAt(i) == '*') {
                 String part1 = input.substring(0, i);
-                String part2 = input.substring(i+1);
+                String part2 = input.substring(i + 1);
                 List<Integer> answer1 = diffWaysToCompute(part1);
                 List<Integer> answer2 = diffWaysToCompute(part2);
                 for (int a1 : answer1) {
@@ -60,13 +60,17 @@ public class _241 {
                             case '*':
                                 result = a1 * a2;
                                 break;
+                            default:
+                                break;
                         }
                         answer.add(result);
                     }
                 }
             }
         }
-        if (answer.size() == 0) answer.add(Integer.valueOf(input));
+        if (answer.size() == 0) {
+            answer.add(Integer.valueOf(input));
+        }
         return answer;
     }
 

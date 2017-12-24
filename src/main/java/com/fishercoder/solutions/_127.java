@@ -7,10 +7,10 @@ import java.util.Set;
 /**
  * 127. Word Ladder
  *
- *  Given two words (beginWord and endWord), and a dictionary's word list, find the length of shortest transformation sequence from beginWord to endWord, such that:
-
- Only one letter can be changed at a time.
- Each transformed word must exist in the word list. Note that beginWord is not a transformed word.
+ *  Given two words (beginWord and endWord), and a dictionary's word list,
+ *  find the length of shortest transformation sequence from beginWord to endWord, such that:
+ *  Only one letter can be changed at a time.
+ *  Each transformed word must exist in the word list. Note that beginWord is not a transformed word.
 
  For example,
 
@@ -19,8 +19,7 @@ import java.util.Set;
  endWord = "cog"
  wordList = ["hot","dot","dog","lot","log","cog"]
 
- As one shortest transformation is "hit" -> "hot" -> "dot" -> "dog" -> "cog",
- return its length 5.
+ As one shortest transformation is "hit" -> "hot" -> "dot" -> "dog" -> "cog", return its length 5.
 
  Note:
 
@@ -29,34 +28,47 @@ import java.util.Set;
  All words contain only lowercase alphabetic characters.
  You may assume no duplicates in the word list.
  You may assume beginWord and endWord are non-empty and are not the same.
-
  */
+
 public class _127 {
 
-    /**Credit: https://discuss.leetcode.com/topic/29303/two-end-bfs-in-java-31ms/16*/
     public int ladderLength(String beginWord, String endWord, List<String> wordList) {
-        Set<String> dict = new HashSet<>(wordList);
-        Set<String> startSet = new HashSet<>();
+        Set<String> beginSet = new HashSet<>();
         Set<String> endSet = new HashSet<>();
         Set<String> visited = new HashSet<>();
-        startSet.add(beginWord);
-        if (dict.contains(endWord)) endSet.add(endWord); // all transformed words must be in dict (including endWord)
-        for (int len = 2; !startSet.isEmpty(); len++) {
-            Set<String> nq = new HashSet<>();
-            for (String w : startSet) {
-                for (int j = 0; j < w.length(); j++) {
-                    char[] ch = w.toCharArray();
+        Set<String> dict = new HashSet<>(wordList);
+        int len = 1;
+
+        beginSet.add(beginWord);
+
+        if (dict.contains(endWord)) {
+            endSet.add(endWord);
+        }
+
+        while (!beginSet.isEmpty() && !endSet.isEmpty()) {
+            Set<String> nextBeginSet = new HashSet<>();
+            for (String word : beginSet) {
+                char[] chars = word.toCharArray();
+                for (int i = 0; i < chars.length; i++) {
                     for (char c = 'a'; c <= 'z'; c++) {
-                        if (c == w.charAt(j)) continue; // beginWord and endWord should not be the same
-                        ch[j] = c;
-                        String nb = String.valueOf(ch);
-                        if (endSet.contains(nb)) return len; // meet from two ends
-                        if (dict.contains(nb) && visited.add(nb)) nq.add(nb); // not meet yet, visited is safe to use
+                        char old = chars[i];
+                        chars[i] = c;
+                        String newWord = new String(chars);
+                        if (endSet.contains(newWord)) {
+                            return len + 1;
+                        }
+
+                        if (!visited.contains(newWord) && dict.contains(newWord)) {
+                            visited.add(newWord);
+                            nextBeginSet.add(newWord);
+                        }
+                        chars[i] = old;
                     }
                 }
             }
-            startSet = (nq.size() < endSet.size()) ? nq : endSet; // switch to small one to traverse from other end
-            endSet = (startSet == nq) ? endSet : nq;
+
+            beginSet = nextBeginSet;
+            len++;
         }
         return 0;
     }

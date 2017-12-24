@@ -31,12 +31,14 @@ public class _51 {
 
     public List<List<String>> solveNQueens(int n) {
         List<List<String>> result = new ArrayList<>();
-        if (n <= 0) return result;
+        if (n <= 0) {
+            return result;
+        }
         search(n, new ArrayList<>(), result);
         return result;
     }
 
-    private void search (int n, ArrayList<Integer> col, List<List<String>> result) {
+    private void search(int n, ArrayList<Integer> col, List<List<String>> result) {
         if (col.size() == n) {
             result.add(drawChessBoard(col));
             return;
@@ -87,7 +89,7 @@ public class _51 {
         return chessBoard;
     }
 
-    public static void main (String...args) {
+    public static void main(String...args) {
         _51 test = new _51();
 
         ArrayList<Integer> col = new ArrayList<>();

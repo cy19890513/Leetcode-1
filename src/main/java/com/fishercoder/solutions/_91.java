@@ -1,5 +1,8 @@
 package com.fishercoder.solutions;
-import  java.util.*;
+
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * A message containing letters from A-Z is being encoded to numbers using the following mapping:
 
@@ -24,27 +27,37 @@ public class _91 {
      * In the end, dp[n] will be the end result.*/
 
     public static int numDecodings_solution2(String s) {
-        if(s == null || s.length() == 0) return 0;
-        int[] dp = new int[s.length()+1];
+        if (s == null || s.length() == 0) {
+            return 0;
+        }
+        int[] dp = new int[s.length() + 1];
         dp[0] = 1;
         dp[1] = (s.charAt(0) != '0') ? 1 : 0;
-        for(int i = 2; i <= s.length(); i++){
-            int first = Integer.valueOf(s.substring(i-1,i));
-            int second = Integer.valueOf(s.substring(i-2, i));
-            if(first > 0 && first <= 9) dp[i] += dp[i-1];
-            if(second >= 10 && second <= 26) dp[i] += dp[i-2];
+        for (int i = 2; i <= s.length(); i++) {
+            int first = Integer.valueOf(s.substring(i - 1, i));
+            int second = Integer.valueOf(s.substring(i - 2, i));
+            if (first > 0 && first <= 9) {
+                dp[i] += dp[i - 1];
+            }
+            if (second >= 10 && second <= 26) {
+                dp[i] += dp[i - 2];
+            }
         }
         return dp[s.length()];
     }
 
-    public static void main(String...args){
+    public static void main(String... args) {
         String msg = "100";
     }
 
-    /**My original accepted yet lengthy solution.*/
+    /**
+     * My original accepted yet lengthy solution.
+     */
     public static int numDecodings_solution1(String s) {
 
-        if(s == null || s.length() == 0) return 0;
+        if (s == null || s.length() == 0) {
+            return 0;
+        }
         Set<String> validStrings = new HashSet();
         validStrings.add("1");
         validStrings.add("2");
@@ -75,27 +88,31 @@ public class _91 {
 
         int n = s.length();
         int[] dp = new int[n];
-        if(validStrings.contains(s.substring(0,1))) dp[0] = 1;
-        else dp[0] = 0;
+        if (validStrings.contains(s.substring(0, 1))) {
+            dp[0] = 1;
+        } else {
+            dp[0] = 0;
+        }
 
-        for(int i = 1; i < n; i++){
-            if(validStrings.contains(s.substring(i,i+1)) && validStrings.contains(s.substring(i-1,i+1))) {
-                if(i > 1){
-                    dp[i] = dp[i-2] + dp[i-1];
+        for (int i = 1; i < n; i++) {
+            if (validStrings.contains(s.substring(i, i + 1)) && validStrings.contains(s.substring(i - 1, i + 1))) {
+                if (i > 1) {
+                    dp[i] = dp[i - 2] + dp[i - 1];
                 } else {
                     dp[1] = 2;
                 }
-            } else if(!validStrings.contains(s.substring(i,i+1)) && !validStrings.contains(s.substring(i-1,i+1))){
+            } else if (!validStrings.contains(s.substring(i, i + 1)) && !validStrings.contains(s.substring(i - 1, i + 1))) {
                 return 0;
-            } else if(!validStrings.contains(s.substring(i,i+1)) && validStrings.contains(s.substring(i-1,i+1))){
-                if(i > 1) dp[i] = dp[i-2];
-                else dp[i] = dp[i-1];
+            } else if (!validStrings.contains(s.substring(i, i + 1)) && validStrings.contains(s.substring(i - 1, i + 1))) {
+                if (i > 1) {
+                    dp[i] = dp[i - 2];
+                } else {
+                    dp[i] = dp[i - 1];
+                }
+            } else {
+                dp[i] = dp[i - 1];
             }
-            else dp[i] = dp[i-1];
         }
-
-        return dp[n-1];
-
+        return dp[n - 1];
     }
-
 }

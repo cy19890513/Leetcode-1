@@ -1,6 +1,11 @@
 package com.fishercoder.solutions;
 
-import java.util.*;
+
+import java.util.Arrays;
+import java.util.Deque;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Set;
 
 /**
  * Given an absolute path for a file (Unix-style), simplify it.
@@ -21,8 +26,11 @@ public class _71 {
         Deque<String> stack = new LinkedList<>();
         Set<String> skipSet = new HashSet<>(Arrays.asList("..", ".", ""));
         for (String dir : path.split("/")) {
-            if (dir.equals("..") && !stack.isEmpty()) stack.pop();
-            else if (!skipSet.contains(dir)) stack.push(dir);
+            if (dir.equals("..") && !stack.isEmpty()) {
+                stack.pop();
+            } else if (!skipSet.contains(dir)) {
+                stack.push(dir);
+            }
         }
         String result = "";
         for (String dir : stack) {

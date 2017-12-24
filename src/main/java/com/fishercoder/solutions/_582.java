@@ -1,6 +1,12 @@
 package com.fishercoder.solutions;
 
-import java.util.*;
+
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 582. Kill Process
@@ -48,7 +54,9 @@ public class _582 {
             int curr = stack.poll();
             result.add(curr);
             List<Integer> list = map.get(curr);
-            if (list != null) stack.addAll(list);
+            if (list != null) {
+                stack.addAll(list);
+            }
         }
         return result;
     }

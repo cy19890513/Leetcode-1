@@ -65,18 +65,22 @@ public class _587 {
             Point next = points[0];
             int nextIndex = 0;
             for (int i = 1; i < points.length; i++) {
-                if (i == curIndex) continue;
+                if (i == curIndex) {
+                    continue;
+                }
                 int cross = crossProductLength(cur, points[i], next);
-                if (nextIndex == curIndex || cross > 0 ||
+                if (nextIndex == curIndex || cross > 0
                         // Handle collinear points
-                        (cross == 0 && distance(points[i], cur) > distance(next, cur))) {
+                        || (cross == 0 && distance(points[i], cur) > distance(next, cur))) {
                     next = points[i];
                     nextIndex = i;
                 }
             }
             // Handle collinear points
             for (int i = 0; i < points.length; i++) {
-                if (i == curIndex) continue;
+                if (i == curIndex) {
+                    continue;
+                }
                 int cross = crossProductLength(cur, points[i], next);
                 if (cross == 0) {
                     result.add(points[i]);
@@ -88,7 +92,7 @@ public class _587 {
 
         } while (curIndex != firstIndex);
 
-        return new ArrayList<Point>(result);
+        return new ArrayList<>(result);
     }
 
     private int crossProductLength(Point A, Point B, Point C) {
